@@ -179,12 +179,6 @@ CORS_ALLOW_METHODS = [
     "PUT",
 ]
 
-
-
-
-
-
-
 # --------------------------------------------------
 # EMAIL (SMTP - GMAIL)
 # --------------------------------------------------
@@ -202,20 +196,13 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 EMAIL_TIMEOUT = 30
 
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 import os
-import dj_database_url
 
-DEBUG = False
-
-ALLOWED_HOSTS = ['your-backend-name.onrender.com']
-
-DATABASES = {
-    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
-}
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-] + MIDDLEWARE
+cloudinary.config(
+  cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+  api_key=os.getenv("CLOUDINARY_API_KEY"),
+  api_secret=os.getenv("CLOUDINARY_API_SECRET")
+)
